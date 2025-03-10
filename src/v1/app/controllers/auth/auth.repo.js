@@ -48,5 +48,21 @@ module.exports = {
       );
     }
   },
+  updateLogout: async (id) => {
+    try {
+      return await userModel.findByIdAndUpdate(
+        id,
+        { isLogin: false, deviceToken: '', onlineStatus:false},
+        { new: true }
+      );
+    } catch (error) {
 
+      return createResponse(
+        false,
+        localeKeys.global.SOMETHING_WENT_WRONG,
+        statusCode.INTERNAL_SERVER_ERROR,
+        error
+      );
+    }
+  },
 };

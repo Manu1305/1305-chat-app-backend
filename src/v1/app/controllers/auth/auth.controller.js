@@ -11,7 +11,7 @@ const {
     validateRegister,
     validateLogin,
 } = require('./auth.validator');
-const { registerCouple, login } = require('./auth.services');
+const { registerCouple, login, logout } = require('./auth.services');
 
 module.exports = {
     /**
@@ -61,6 +61,28 @@ module.exports = {
             }
 
             const response = await login(phoneNumber, secretCode, deviceToken);
+
+            return next(respond(res, { ...response, message: response.message }));
+        } catch (error) {
+            console.error('app -> controller -> auth -> login  -> error', error);
+            return next(
+                respondFailure(
+                    res,
+                    localeKeys.global.SOMETHING_WENT_WRONG,
+                    statusCode.INTERNAL_SERVER_ERROR,
+                    error.message,
+                ),
+            );
+        }
+    },
+    logout: async (req, res, next) => {
+        try {
+            console.log(req.user,'request logged')
+
+            const { phoneNumber } = req.user
+
+
+            const response = await logout(phoneNumber);
 
             return next(respond(res, { ...response, message: response.message }));
         } catch (error) {

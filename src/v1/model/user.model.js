@@ -15,7 +15,7 @@ const userSchema = new Schema({
     verificationCode: { type: Number, default: '' },
     userType: { type: Number, default: 1 },
     isLogin: { type: Boolean, default: false },
-    onlineStatus: { type: Boolean, default: true },
+    onlineStatus: { type: Boolean, default: false },
     lastSeen: { type: Date, default: new Date() },
 }, { timestamps: true });
 

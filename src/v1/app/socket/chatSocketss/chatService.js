@@ -65,8 +65,8 @@ const sendMessage = async (body) => {
 
         // Send push notification if the receiver has a valid Expo push token
         const { deviceToken } = receiverDetails;
-        if (deviceToken?.startsWith("ExponentPushToken[")) {
-
+        if (deviceToken?.startsWith("ExponentPushToken[") && !seen) {
+            alert("ExponentPushToken")
             await sendPushNotification(deviceToken, senderDetails.fullName, message);
         } else {
 
